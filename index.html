@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bienvenida</title>
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            background-image: url('arce.png'); 
+            background-size: cover;
+            background-position: center;
+            overflow: hidden;
+            font-family: 'Georgia', serif;
+            position: relative;
+        }
+        .welcome {
+            font-size: 4rem;
+            font-weight: bold;
+            color: #8B0000;
+            position: absolute;
+            text-shadow: 5px 5px 10px rgba(0,0,0,0.3);
+            z-index: 10;
+            background: rgba(255, 255, 255, 0.7);
+            padding: 20px 40px;
+            border-radius: 15px;
+            border: 3px solid #8B0000;
+            max-width: 80%;
+            text-align: center;
+        }
+        .leaf {
+            position: absolute;
+            top: -50px;
+            font-size: 2.5rem;
+            opacity: 0.9;
+            animation: fall linear infinite;
+        }
+        @keyframes fall {
+            0% { transform: translateY(-10vh) rotate(0deg); opacity: 1; }
+            100% { transform: translateY(100vh) rotate(360deg); opacity: 0; }
+        }
+        .start-button {
+            position: absolute;
+            bottom: 90px; 
+            padding: 10px 20px;
+            background-color: #8B0000;
+            color: white;
+            font-size: 1.5rem;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            z-index: 15;
+        }
+        .start-button:hover {
+            background-color: #b22222;
+        }
+    </style>
+</head>
+<body>
+    <div class="welcome">¡Bienvenida a casa, mi mujer tan pequeña como una flor! 🧡</div>
+
+    <audio id="background-music" loop>
+        <source src="Whoareyou.mp3" type="audio/mp3">
+        Tu navegador no soporta el elemento de audio.
+    </audio>
+
+    <button class="start-button" onclick="playMusic()">Iniciar Música</button>
+
+    <script>
+        function createLeaf() {
+            const leaf = document.createElement("div");
+            leaf.classList.add("leaf");
+            leaf.textContent = "🍁";
+            document.body.appendChild(leaf);
+            
+            let startX = Math.random() * window.innerWidth;
+            let duration = Math.random() * 5 + 3;
+            let size = Math.random() * 2 + 1.5;
+            
+            leaf.style.left = `${startX}px`;
+            leaf.style.animationDuration = `${duration}s`;
+            leaf.style.fontSize = `${size}rem`;
+            
+            setTimeout(() => {
+                leaf.remove();
+            }, duration * 1000);
+        }
+        
+        setInterval(createLeaf, 150);
+
+        function playMusic() {
+            const music = document.getElementById("background-music");
+            music.play();
+            document.querySelector(".start-button").style.display = 'none';
+        }
+    </script>
+</body>
+</html>
